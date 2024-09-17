@@ -20,6 +20,9 @@ func NewHandler(output io.Writer, calculator calc.Calculator) *Handler {
 }
 
 func (this *Handler) Handle(values []string) (int, error) {
+	if this.calculator == nil {
+		return 0, errNilPointerReference
+	}
 	if len(values) != 2 {
 		return 0, errTooFewArgs
 	}
@@ -36,6 +39,7 @@ func (this *Handler) Handle(values []string) (int, error) {
 }
 
 var (
-	errTooFewArgs     = fmt.Errorf("Too few arguments provided.")
-	errMalformedInput = fmt.Errorf("Invalid argument type provided.")
+	errTooFewArgs          = fmt.Errorf("Too few arguments provided.")
+	errMalformedInput      = fmt.Errorf("Invalid argument type provided.")
+	errNilPointerReference = fmt.Errorf("Malformed input led to nil pointer reference.")
 )
